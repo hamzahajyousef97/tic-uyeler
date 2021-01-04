@@ -1,0 +1,35 @@
+<div class="container" style="margin-top: 1%;">
+  <div class="col-md-5 center">
+    <table>
+      <tbody>
+        <tr>
+          <td><img class="center" width="60%" src="assets/2.png" alt=""></td>
+          <td><img class="center" width="100%" src="assets/1.png" alt=""></td>
+          <td><img class="center" width="60%" src="assets/turkey.png" alt=""></td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="container"> 
+  <div class="col-md-6 center">
+    <form class="text-center border border-light p-5" [formGroup]="signInForm" #fform="ngForm">
+      <p class="h4 mb-4">Üye Girişi</p>
+      <h5 *ngIf="errMess" style="color:red">{{errMess}}</h5>
+      <div *ngIf="formErrors.email">
+        <p style="color:red;margin-bottom: 1px;text-align: left;">{{ formErrors.email }}</p>
+      </div>
+      <input type="email" formControlName="email" id="defaultLoginFormEmail" class="form-control mb-4" #userName placeholder="E-mail">
+      <input type="password" formControlName="password" id="defaultLoginFormPassword" class="form-control mb-4" #userPassword placeholder="Şifre">
+
+
+
+      <button [hidden]="loading" class="btn btn-primary btn-block my-4" type="submit" (click)="SignIn(userName.value, userPassword.value)" [disabled]="signInForm.invalid">Giriş Yap ve Devam Et</button>
+      <button *ngIf="loading" class="btn btn-primary btn-block my-4" type="submit" >Giriş Yapıyor<i style="margin-left:3px" class="fa fa-spinner fa-spin fa-lg"></i></button>
+
+    </form>
+  </div>
+</div>

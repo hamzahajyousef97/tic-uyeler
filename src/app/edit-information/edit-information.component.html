@@ -1,0 +1,388 @@
+<app-header></app-header>
+  
+  <div class="container-fluid" style="margin-top: 1%" *ngIf="item">
+    <h2 class="text-center arabic">إضافة نشرة الاستعلامات لـ {{item.nameAR}} {{item.lastnameAR}}</h2>
+    <form novalidate [formGroup]="infoForm" #fform="ngForm" (ngSubmit)="onSubmit()" style=" margin-bottom: 2.5%;">
+      <div class="col-md-4 center" style="margin-top: 1%;">
+        <div class="card card-body">
+          <div class="form-group" dir="rtl">
+            <label for="exampleFormControlSelect1" style="float: right;"><span class="arabic">الديانة</span> / Din</label>
+            <select formControlName="religion" [(ngModel)]="item.religion" class="form-control" id="exampleFormControlSelect1">
+                <option value="m">مسلم</option>
+                <option value="h">مسيحي</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" style="margin-top: 1%;">
+          <div class="card card-body turkish">
+            <h2 class="text-center turkish">- Türkçe -</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="ethnicTR" [(ngModel)]="item.ethnicTR" type="text" class="form-control" required>
+                  <label>Millet:</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="clanTR" type="text" [(ngModel)]="item.clanTR" class="form-control" required>
+                  <label>Aşiret:</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="criminalRecordTR" [(ngModel)]="item.criminalRecordTR" type="text" class="form-control" required>
+                  <label>Adli Sicil kaydı varsa:</label>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="terrorismTR" [(ngModel)]="item.terrorismTR" type="text" class="form-control" required>
+                  <label>Terör Örgütleriyle Bağlantısı varsa:</label>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="family_terrorismTR" [(ngModel)]="item.family_terrorismTR" type="text" class="form-control" required>
+                  <label>Ailede terör örgütlerinden biriyle veya insan kaçakçılığı olan var mı?</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" style="margin-top: 1%;">
+          <div class="card card-body arabic">
+            <h2 class="text-center arabic">- العربية -</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="ethnicAR" [(ngModel)]="item.ethnicAR" type="text" class="form-control" required>
+                  <label>القومية (عرب، تركمان، كرد)</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="clanAR" [(ngModel)]="item.clanAR" type="text" class="form-control" required>
+                  <label>العشيرة</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="criminalRecordAR" [(ngModel)]="item.criminalRecordAR" type="text" class="form-control" required>
+                  <label>سوابق جنائية ان وجد</label>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="terrorismAR" [(ngModel)]="item.terrorismAR" type="text" class="form-control" required>
+                  <label>انتماء الى تنظيمات إرهابية ان وجد </label>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="family_terrorismAR" [(ngModel)]="item.family_terrorismAR" type="text" class="form-control" required>
+                  <label>هل يوجد في العائلة من ينتمي أؤ له علاقة وارتباط مع احدى التنظيمات الإرهابية أو تهريب البشر</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 center" style="margin-top: 20px;">
+        <mdb-checkbox class="arabic center" formControlName="revolution" [(ngModel)]="item.revolution" [default]="false">المشاركة بالثورة</mdb-checkbox>
+      </div>
+      <div class="col-md-4 center" style="margin-top:1%">
+        <button class="btn btn-success btn-block arabic" style="font-size:20px" [disabled]="infoForm.invalid" mdbWavesEffect type="submit">إضافة وتعديل الاستعلامات</button>
+      </div>
+    </form>
+    <div class="col-md-6 center">
+      <hr>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-4 center">
+          <div placement="right" mdbTooltip="لإضافة بيانات الاخوة عليك اولاً اضافة بيانات الاستعلامات">
+            <a *ngIf="item.clanAR == null || item.terrorismAR == null"
+              class="btn btn-primary btn-block arabic disabled" 
+              style="font-size:20px;color: #fff;" mdbWavesEffect>
+              <i style="color: #fff" class="fas fa-user-plus"></i> إضافة أخ / أخت
+            </a>
+          </div>
+          <a *ngIf="item.clanAR != null || item.terrorismAR != null"
+            class="btn btn-primary btn-block arabic" [routerLink]="['/add-brothers', id]" 
+            style="font-size:20px;color: #fff;" mdbWavesEffect> <i style="color: #fff" class="fas fa-user-plus">
+            </i> إضافة أخ / أخت
+          </a>
+        </div>
+        <br>
+        <p class="text-center arabic" style="font-weight: bold;">- الأخوة المضافين -</p>
+        <table mdbTable hover="true" class="z-depth-1" dir="rtl">
+          <thead>
+          <tr class="arabic">
+            <th style="text-align: center;" sortBy="seriNo"><a>رقم التسلسل <i class="fas fa-arrows-alt-v"></i></a></th>
+            <th style="text-align: center;"> <a>الاسم </a></th>
+            <th style="text-align: center;"><a>الجنس </a></th>
+            <th style="text-align: center;"><a>الحالة الاجتماعية </a></th>
+            <th style="text-align: center;">عرض التفاصيل - حذف</th>
+  
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let brother of brothers; let i = index">
+            <th style="text-align: center;" scope="row">{{brother.payload.doc.data().seriNo}}</th>
+            <td class="arabic" style="text-align: center;">{{brother.payload.doc.data().nameAR}}</td>
+            <td class="arabic" style="text-align: center;">
+              <span *ngIf="brother.payload.doc.data().sex == 'male'">
+                ذكر
+              </span>
+              <span *ngIf="brother.payload.doc.data().sex == 'female'">
+                انثى
+              </span>
+            </td>
+            <td class="arabic" style="text-align: center;">{{brother.payload.doc.data().marriedAR}}</td>
+            <td style="text-align: center;">
+              <a (click)="showBrother.show()" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip="عرض التفاصيل" class="btn btn-success"><i style="color: #fff;" class="fas fa-id-card"></i></a>
+              <a (click)="deleteBrother.show()" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip="حذف العنصر" class="btn btn-danger"><i style="color: #fff" class="fas fa-user-minus"></i></a>
+            </td>
+
+            <!-- Show Details Modal -->
+            <div mdbModal #showBrother="mdbModal" class="modal fade right" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"aria-hidden="true">
+              <div class="modal-dialog" dir="rtl" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header arabic ">
+                          <p style="width: 100%;" class="text-center">
+                            - تفاصيل معلومات  : <span style="font-weight: bold;">{{brother.payload.doc.data().nameAR}}</span> - 
+                          </p>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-6 arabic text-right">
+                            <p>
+                              <span style="font-weight: bold;">الاسم:</span>
+                               {{brother.payload.doc.data().nameAR}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">تاريخ الولادة:</span> {{brother.payload.doc.data().dateBirth}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">مكان الولادة:</span> {{brother.payload.doc.data().placeBirthAR}}
+                            </p>
+                            <p *ngIf="brother.payload.doc.data().sex == 'male'">
+                              <span style="font-weight: bold;">الجنس:</span>
+                               ذكر
+                            </p>
+                            <p *ngIf="brother.payload.doc.data().sex == 'female'">
+                              <span style="font-weight: bold;">الجنس:</span>
+                               انثى
+                            </p>
+                          </div>
+                          <div class="col-md-6 arabic text-right">
+                            <p>
+                              <span style="font-weight: bold;">الرقم التسلسلي:</span>
+                               {{brother.payload.doc.data().seriNo}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">عنوان السكن:</span>
+                               {{brother.payload.doc.data().addressAR}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">العمل:</span>
+                               {{brother.payload.doc.data().workAR}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">الحالة الاجتماعية:</span>
+                               {{brother.payload.doc.data().marriedAR}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                          <div class="col-md-6 center"> 
+                            <button class="btn btn-secondary btn-block waves-light arabic" aria-label="Close" (click)="showBrother.hide()" mdbWavesEffect>إغلاق</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <!-- Delete Modal -->
+            <div mdbModal #deleteBrother="mdbModal" class="modal fade right" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"aria-hidden="true">
+              <div class="modal-dialog" dir="rtl" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header arabic ">
+                          <p style="width: 100%;" class="text-center">
+                            - هل تريد حذف هذا العنصر - 
+                          </p>
+                      </div>
+                      <div class="modal-footer">
+                          <div class="col-md-6 center">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <button class="btn btn-danger btn-block relative waves-light" (click)="delete_brother(brother.payload.doc.id); deleteBrother.hide()" mdbWavesEffect>نعم</button>
+                              </div>
+                              <div class="col-md-6"> 
+                                <button class="btn btn-secondary btn-block waves-light" aria-label="Close" (click)="deleteBrother.hide()" mdbWavesEffect>إلغاء</button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-4 center">
+          <div placement="right" mdbTooltip="لإضافة بيانات الأولاد عليك اولاً اضافة بيانات الاستعلامات">
+            <a *ngIf="item.clanAR == null || item.terrorismAR == null"
+            class="btn btn-primary btn-block arabic disabled"  
+            style="font-size:20px;color: #fff;" mdbWavesEffect> <i style="color: #fff" class="fas fa-user-plus">
+            </i> إضافة ولد / بنت
+            </a>
+          </div>
+          <a *ngIf="item.clanAR != null || item.terrorismAR != null"
+            class="btn btn-primary btn-block arabic" [routerLink]="['/add-children', id]" 
+            style="font-size:20px;color: #fff;" mdbWavesEffect> <i style="color: #fff" class="fas fa-user-plus">
+            </i> إضافة ولد / بنت
+          </a>
+        </div>
+        <br>
+        <p class="text-center arabic" style="font-weight: bold;">- الأولاد المضافين -</p>
+        <table mdbTable hover="true" class="z-depth-1" dir="rtl">
+          <thead>
+          <tr class="arabic">
+            <th style="text-align: center;" sortBy="seriNo"><a>رقم التسلسل <i class="fas fa-arrows-alt-v"></i></a></th>
+            <th style="text-align: center;"> <a>الاسم </a></th>
+            <th style="text-align: center;"><a>الجنس </a></th>
+            <th style="text-align: center;"><a>الحالة الاجتماعية </a></th>
+            <th style="text-align: center;">عرض التفاصيل - حذف</th>
+  
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let child of children; let i = index">
+            <th style="text-align: center;" scope="row">{{child.payload.doc.data().seriNo}}</th>
+            <td class="arabic" style="text-align: center;">{{child.payload.doc.data().nameAR}}</td>
+            <td class="arabic" style="text-align: center;">
+              <span *ngIf="child.payload.doc.data().sex == 'male'">
+                ذكر
+              </span>
+              <span *ngIf="child.payload.doc.data().sex == 'female'">
+                انثى
+              </span>
+            </td>
+            <td class="arabic" style="text-align: center;">{{child.payload.doc.data().marriedAR}}</td>
+            <td style="text-align: center;">
+              <a (click)="showChild.show()" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip="عرض التفاصيل" class="btn btn-success"><i style="color: #fff;" class="fas fa-id-card"></i></a>
+              <a (click)="deleteChild.show()" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip="حذف العنصر" class="btn btn-danger"><i style="color: #fff" class="fas fa-user-minus"></i></a>
+            </td>
+
+            <!-- Show Details Modal -->
+            <div mdbModal #showChild="mdbModal" class="modal fade right" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"aria-hidden="true">
+              <div class="modal-dialog" dir="rtl" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header arabic ">
+                        <p style="width: 100%;" class="text-center">
+                          - تفاصيل معلومات  : <span style="font-weight: bold;">{{child.payload.doc.data().nameAR}}</span> - 
+                        </p>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-6 arabic text-right">
+                            <p>
+                              <span style="font-weight: bold;">الاسم:</span>
+                               {{child.payload.doc.data().nameAR}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">تاريخ الولادة:</span> {{child.payload.doc.data().dateBirth}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">مكان الولادة:</span> {{child.payload.doc.data().placeBirthAR}}
+                            </p>
+                            <p *ngIf="child.payload.doc.data().sex == 'male'">
+                              <span style="font-weight: bold;">الجنس:</span>
+                               ذكر
+                            </p>
+                            <p *ngIf="child.payload.doc.data().sex == 'female'">
+                              <span style="font-weight: bold;">الجنس:</span>
+                               انثى
+                            </p>
+                          </div>
+                          <div class="col-md-6 arabic text-right">
+                            <p>
+                              <span style="font-weight: bold;">الرقم التسلسلي:</span>
+                               {{child.payload.doc.data().seriNo}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">عنوان السكن:</span>
+                               {{child.payload.doc.data().addressAR}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">العمل:</span>
+                               {{child.payload.doc.data().workAR}}
+                            </p>
+                            <p>
+                              <span style="font-weight: bold;">الحالة الاجتماعية:</span>
+                               {{child.payload.doc.data().marriedAR}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <div class="col-md-6 center"> 
+                          <button class="btn btn-secondary btn-block waves-light arabic" aria-label="Close" (click)="showChild.hide()" mdbWavesEffect>إغلاق</button>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <!-- Delete Modal -->
+            <div mdbModal #deleteChild="mdbModal" class="modal fade right" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"aria-hidden="true">
+              <div class="modal-dialog" dir="rtl" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header arabic ">
+                          <p style="width: 100%;" class="text-center">
+                            - هل تريد حذف هذا العنصر - 
+                          </p>
+                      </div>
+                    <div class="modal-footer">
+                        <div class="col-md-6 center">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <button class="btn btn-danger btn-block relative waves-light" (click)="delete_children(child.payload.doc.id); deleteChild.hide()" mdbWavesEffect>نعم</button>
+                            </div>
+                            <div class="col-md-6"> 
+                              <button class="btn btn-secondary btn-block waves-light" aria-label="Close" (click)="deleteChild.hide()" mdbWavesEffect>إلغاء</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br><br><br><br>
+  </div>
+
+  <app-footer></app-footer>

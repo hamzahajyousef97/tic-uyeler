@@ -1,0 +1,330 @@
+<app-header></app-header>
+
+<div class="container-fluid" id="print-section" *ngIf="item && globals.lang == 'ar'">
+    <div class="container" style="margin-top: 5%;">
+        <div class="row">
+            <div class="col-md-4">
+                <img style="border-radius: 5px;" width="60%" src="assets/1.png" alt="" >
+            </div>
+            <div class="col-md-4 arabic text-center">
+                <br><br>
+                <div style="border: 2px solid rgb(0, 0, 0)!important;border-radius: 16px;">
+                    <h3>
+                        رسم الانتساب
+                    </h3>
+                </div>
+            </div>
+            <div class="col-md-4 arabic text-right" dir="rtl">
+                <br><br>
+                <h3>
+                    غرفة صناعة   وتجارة الراعي
+                </h3>
+            </div>
+        </div>
+        <hr style="border-top:2px solid rgb(0 0 0 / 42%); margin-top: 4%;margin-bottom: 4%;">
+    </div>
+
+    <div class="container" style="margin-top: 1%;" dir="rtl">
+        <div class="col-md-12 center arabic">            
+            <div class="text-right">
+                <h3>
+                    <span style="font-weight: bold;float: left;">رقم الإيصال : .................</span>
+                </h3>
+                <br>    
+                <h3>
+                    <span style="font-weight: bold;">اسم المنتسب:</span>
+                      {{item.nameAR}} {{item.fatherAR}} {{item.lastnameAR}}
+                </h3>
+                <h3>
+                    <span style="font-weight: bold;">قيمة رسم الانتساب : </span>
+                    <!-- <span *ngIf="item.total_payment != null">
+                        {{item.total_payment}}
+                    </span> -->
+
+                    <span>
+                        ................
+                    </span>
+                </h3>
+                <h3>
+                    <span style="font-weight: bold;">تم استلام مبلغ قدره </span>
+                    <!-- <span *ngIf="item.paid != null">
+                        {{item.paid}}
+                    </span> -->
+
+                    <span>
+                        ................
+                    </span>
+                    <span style="font-weight: bold;"> وذلك لقاء انتسابه لغرفة الصناعة والتجارة في مدينة الراعي</span>
+                </h3>
+            </div>
+
+            <div class="row text-center" style="font-weight: bold; margin-top: 6%;">
+                <div class="col-md-4">
+                    <p>
+                        اسم المستلم
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        توقيع المستلم
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        حرر بتاريخ 
+                        <span style="margin-left: 30px; margin-right: 30px;">/</span>
+                        <span style="margin-left: 30px; margin-right: 30px;">/</span>     
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 5%;">
+        <div class="row">
+            <div class="col-md-4">
+                <img style="border-radius: 5px;" width="60%" src="assets/1.png" alt="" >
+            </div>
+            <div class="col-md-4 arabic text-center">
+                <br><br>
+                <div style="border: 2px solid rgb(0, 0, 0)!important;border-radius: 16px;">
+                    <h3>
+                        رسم الانتساب
+                    </h3>
+                </div>
+            </div>
+            <div class="col-md-4 arabic text-right" dir="rtl">
+                <br><br>
+                <h3>
+                    غرفة صناعة   وتجارة الراعي
+                </h3>
+            </div>
+        </div>
+        <hr style="border-top:2px solid rgb(0 0 0 / 42%); margin-top: 4%;margin-bottom: 4%;">
+    </div>
+
+    <div class="container" style="margin-top: 1%;" dir="rtl">
+        <div class="col-md-12 center arabic">            
+            <div class="text-right">
+                <h3>
+                    <span style="font-weight: bold;float: left;">رقم الإيصال : .................</span>
+                </h3>
+                <br>    
+                <h3>
+                    <span style="font-weight: bold;">اسم المنتسب:</span>
+                      {{item.nameAR}} {{item.fatherAR}} {{item.lastnameAR}}
+                </h3>
+                <h3>
+                    <span style="font-weight: bold;">قيمة رسم الانتساب : </span>
+                    <!-- <span *ngIf="item.total_payment != null">
+                        {{item.total_payment}}
+                    </span> -->
+
+                    <span>
+                        ................
+                    </span>
+                </h3>
+                <h3>
+                    <span style="font-weight: bold;">تم استلام مبلغ قدره </span>
+                    <!-- <span *ngIf="item.paid != null">
+                        {{item.paid}}
+                    </span> -->
+
+                    <span>
+                        ................
+                    </span>
+                    <span style="font-weight: bold;"> وذلك لقاء انتسابه لغرفة الصناعة والتجارة في مدينة الراعي</span>
+                </h3>
+            </div>
+
+            <div class="row text-center" style="font-weight: bold; margin-top: 6%;">
+                <div class="col-md-4">
+                    <p>
+                        اسم المستلم
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        توقيع المستلم
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        حرر بتاريخ 
+                        <span style="margin-left: 30px; margin-right: 30px;">/</span>
+                        <span style="margin-left: 30px; margin-right: 30px;">/</span>     
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" id="print-section" *ngIf="item && globals.lang == 'tr'">
+    <div class="container" style="margin-top: 5%;">
+        <div class="row">
+            <div class="col-md-4 turkish text-left" dir="rtl">
+                <br><br>
+                <h3>
+                    Çobanbey Sanayi ve Ticaret Odası
+                </h3>
+            </div>
+            <div class="col-md-4 turkish text-center">
+                <br><br>
+                <div style="border: 2px solid rgb(0, 0, 0)!important;border-radius: 16px;">
+                    <h3>
+                        Üyelik ücreti
+                    </h3>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <img style="border-radius: 5px;float: right;" width="60%" src="assets/1.png" alt="" >
+            </div>
+        </div>
+        <hr style="border-top:2px solid rgb(0 0 0 / 42%); margin-top: 4%;margin-bottom: 4%;">
+    </div>
+
+    <div class="container" style="margin-top: 1%;" dir="ltr">
+        <div class="col-md-12 center turkish">            
+            <div class="text-left">
+                <h3 class="text-right">
+                    <span style="font-weight: bold;">Makbuz Numarası: ....................</span>
+                </h3>
+                <br>    
+                <h3>
+                    <span style="font-weight: bold;">Üye adı:</span>
+                      {{item.nameTR}} {{item.fatherTR}} {{item.lastnameTR}}
+                </h3>
+                <h3>
+                    <span style="font-weight: bold;">Üyelik ücretinin değeri: </span>
+                    <!-- <span *ngIf="item.total_payment != null">
+                        {{item.total_payment}}
+                    </span> -->
+
+                    <span>
+                        ................
+                    </span>
+                </h3>
+                <h3>
+                    <span style="font-weight: bold;">Tutar alındı</span>
+                    <!-- <span *ngIf="item.paid != null">
+                        {{item.paid}}
+                    </span> -->
+
+                    <span>
+                        ................
+                    </span>
+                    <span style="font-weight: bold;"> Ve bu da Çobanbey şehrindeki Sanayi ve Ticaret Odası üyeliğiyle tanışmak içindir.</span>
+                </h3>
+            </div>
+
+            <div class="row text-center" style="font-weight: bold; margin-top: 6%;">
+                <div class="col-md-4">
+                    <p>
+                        Alıcının adı
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Alıcının imzası
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Tarih
+                        <span style="margin-left: 30px; margin-right: 30px;">/</span>
+                        <span style="margin-left: 30px; margin-right: 30px;">/</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 5%;">
+        <div class="row">
+            <div class="col-md-4 turkish text-left" dir="rtl">
+                <br><br>
+                <h3>
+                    Çobanbey Sanayi ve Ticaret Odası
+                </h3>
+            </div>
+            <div class="col-md-4 turkish text-center">
+                <br><br>
+                <div style="border: 2px solid rgb(0, 0, 0)!important;border-radius: 16px;">
+                    <h3>
+                        Üyelik ücreti
+                    </h3>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <img style="border-radius: 5px;float: right;" width="60%" src="assets/1.png" alt="" >
+            </div>
+        </div>
+        <hr style="border-top:2px solid rgb(0 0 0 / 42%); margin-top: 4%;margin-bottom: 4%;">
+    </div>
+
+    <div class="container" style="margin-top: 1%;" dir="ltr">
+        <div class="col-md-12 center turkish">            
+            <div class="text-left">
+                <h3 class="text-right">
+                    <span style="font-weight: bold;">Makbuz Numarası: ....................</span>
+                </h3>
+                <br>    
+                <h3>
+                    <span style="font-weight: bold;">Üye adı:</span>
+                      {{item.nameTR}} {{item.fatherTR}} {{item.lastnameTR}}
+                </h3>
+                <h3>
+                    <span style="font-weight: bold;">Üyelik ücretinin değeri: </span>
+                    <!-- <span *ngIf="item.total_payment != null">
+                        {{item.total_payment}}
+                    </span> -->
+
+                    <span>
+                        ................
+                    </span>
+                </h3>
+                <h3>
+                    <span style="font-weight: bold;">Tutar alındı</span>
+                    <!-- <span *ngIf="item.paid != null">
+                        {{item.paid}}
+                    </span> -->
+
+                    <span>
+                        ................
+                    </span>
+                    <span style="font-weight: bold;"> Ve bu da Çobanbey şehrindeki Sanayi ve Ticaret Odası üyeliğiyle tanışmak içindir.</span>
+                </h3>
+            </div>
+
+            <div class="row text-center" style="font-weight: bold; margin-top: 6%;">
+                <div class="col-md-4">
+                    <p>
+                        Alıcının adı
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Alıcının imzası
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Tarih
+                        <span style="margin-left: 30px; margin-right: 30px;">/</span>
+                        <span style="margin-left: 30px; margin-right: 30px;">/</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-3 center text-right arabic" style="margin-top: 3%;">
+    <button class="btn btn-primary btn-block" (click)="generatePdf()"> طباعة الملف <i style="color: #fff;" class="fas fa-print"></i></button>
+</div>
+
+
+<app-footer></app-footer>

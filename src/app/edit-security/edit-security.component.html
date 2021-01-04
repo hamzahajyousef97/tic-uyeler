@@ -1,0 +1,147 @@
+<app-header></app-header>
+
+    <div class="container-fluid" style="margin-top: 3%">
+      <h2 class="text-center arabic">إضافة وتعديل نشرة الاستعلامات خاص لـ {{item.nameAR}} {{item.lastnameAR}}</h2>
+      <br>
+      <br>
+      <form novalidate [formGroup]="memberForm" #fform="ngForm" (ngSubmit)="onSubmit()" style=" margin-bottom: 2.5%;">
+        <div class="row">
+          <div class="col-md-10 center">
+            <div class="card card-body arabic">
+              <h2 class="text-center arabic">- معلومات مشتركة -</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <!-- <i class="fas fa-calendar-week prefix"></i> -->
+                    <input mdbValidate mdbInput formControlName="start_PermitDate" [(ngModel)]="item.start_PermitDate" type="date" class="form-control" data-date-format="DD MMMM YYYY" required>
+                    <label>تاريخ بدء الاذن التجاري</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <!-- <i class="fas fa-calendar-week prefix"></i> -->
+                    <input mdbValidate mdbInput formControlName="end_PermitDate" [(ngModel)]="item.end_PermitDate" min="{{memberForm.value.start_PermitDate}}" type="date" class="form-control" required>
+                    <label>تاريخ انتهاء الاذن التجاري</label>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="custom-control custom-radio">
+                    <input formControlName="fees" value="fee" [(ngModel)]="item.fees" type="radio" class="custom-control-input" id="defaultUnchecked" name="fees" mdbInput>
+                    <label class="custom-control-label" for="defaultUnchecked">تم استفاء الرسوم</label>
+                  </div>
+                  
+                  <div class="custom-control custom-radio">
+                    <input formControlName="fees" type="radio" [(ngModel)]="item.fees" value="No_fee" class="custom-control-input" id="defaultChecked" name="fees" checked mdbInput>
+                    <label class="custom-control-label" for="defaultChecked">لم يستوفِ الرسوم</label>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="md-form" style="margin-top: 0rem;">
+                    <i class="fas fa-money-bill-wave prefix"></i>
+                    <input onlyNumber mdbValidate mdbInput formControlName="total_payment" [(ngModel)]="item.total_payment" type="text" class="form-control" required>
+                    <label>قيمة رسم الانتساب بالليرة التركية</label>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="md-form" style="margin-top: 0rem;">
+                    <i class="fas fa-money-bill-wave prefix"></i>
+                    <input onlyNumber mdbValidate mdbInput formControlName="paid" [(ngModel)]="item.paid" type="text" class="form-control" required>
+                    <label>المبلغ المدفوع بالليرة التركية</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" style="margin-bottom: 1.5; margin-top: 5%;">
+            <div class="card card-body turkish">
+              <h2 class="text-center turkish">- Türkçe -</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-info-circle prefix"></i>
+                    <input mdbValidate mdbInput formControlName="currentWorkTR" [(ngModel)]="item.currentWorkTR" type="text" class="form-control" required>
+                    <label>Şimdiki İş:</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-map-marker-alt prefix"></i>
+                    <input mdbValidate mdbInput formControlName="currentWork_addresTR" [(ngModel)]="item.currentWork_addresTR" type="text" class="form-control" required>
+                    <label>Şimdiki İşyerinin Adresi:</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-info-circle prefix"></i>
+                    <input mdbValidate mdbInput formControlName="laterWorkTR" [(ngModel)]="item.laterWorkTR" type="text"  class="form-control" required>
+                    <label>Devrimden önce iş:</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-map-marker-alt prefix"></i>
+                    <input mdbValidate mdbInput formControlName="laterWork_addresTR" [(ngModel)]="item.laterWork_addresTR" type="text" class="form-control" required>
+                    <label>Devrim öncesi işyeri adresi:</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-info-circle prefix"></i>
+                    <input mdbValidate mdbInput formControlName="wifeWorkTR" [(ngModel)]="item.wifeWorkTR" type="text" class="form-control" required>
+                    <label>Eş çalışıyor mu ?</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" style="margin-bottom: 1.5; margin-top: 5%;">
+            <div class="card card-body arabic">
+              <h2 class="text-center arabic">- العربية -</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-info-circle prefix"></i>
+                    <input mdbValidate mdbInput formControlName="currentWorkAR" [(ngModel)]="item.currentWorkAR" type="text" class="form-control" required>
+                    <label>العمل الحالي</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-map-marker-alt prefix"></i>
+                    <input mdbValidate mdbInput formControlName="currentWork_addresAR" [(ngModel)]="item.currentWork_addresAR" type="text" class="form-control" required>
+                    <label>عنوان مكان العمل الحالي</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-info-circle prefix"></i>
+                    <input mdbValidate mdbInput formControlName="laterWorkAR" [(ngModel)]="item.laterWorkAR" type="text" class="form-control" required>
+                    <label>العمل ما قبل الثورة</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-map-marker-alt prefix"></i>
+                    <input mdbValidate mdbInput formControlName="laterWork_addresAR" [(ngModel)]="item.laterWork_addresAR" type="text" class="form-control" required>
+                    <label>عنوان مكان العمل ما قبل الثورة</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <i class="fas fa-info-circle prefix"></i>
+                    <input mdbValidate mdbInput formControlName="wifeWorkAR" [(ngModel)]="item.wifeWorkAR" type="text" class="form-control" required>
+                    <label>هل تعمل الزوجة ؟</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 center" style="margin-top:4%">
+          <button class="btn btn-success btn-block arabic" style="font-size:20px" [disabled]="memberForm.invalid" mdbWavesEffect type="submit">إضافة وتعديل نشرة الاستعلامات خاص</button>
+        </div>
+      </form>
+    </div>
+
+    <app-footer></app-footer>

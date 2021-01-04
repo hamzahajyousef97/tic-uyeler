@@ -1,0 +1,471 @@
+<app-header></app-header>
+<div class="container-fluid" style="margin-top: 2%">
+  <h2 class="text-center arabic">إضافة عضو جديد</h2>
+  <form novalidate [formGroup]="memberForm" #fform="ngForm" (ngSubmit)="onSubmit()" style=" margin-bottom: 2.5%;">
+    <div class="row">
+      <div class="col-md-9 center" style="margin-bottom: 1.5%; margin-top: 2%;">
+        <div class="row">
+          <div class="col-md-4">
+            <div *ngIf="!percentage" style="margin-bottom:10px">
+              <i class="far fa-user center text-center" style="font-size: 75px;"></i>
+            </div>
+            <div class="file">
+              <div class="center" style="width: 56%;">
+                <label for="file-upload" class="custom-file-upload">
+                  <i class="fas fa-cloud-upload-alt"></i> Resim Ekle
+                </label>
+                <a class="btn btn-warning btn-block" (click)="openCamera()" *ngIf="!showWebcam">
+                  <i class="fas fa-camera"></i> Kamera
+                </a>
+                <input id="file-upload" (change)="onDrop($event.target.files)" type="file"/>
+              </div>
+
+              <div class="snapshot" style="width: 100%;" *ngIf="webcamImage">
+                <img width="100%" [src]="webcamImage.imageAsDataUrl"/>
+              </div>
+              <div style="width: 100%;">
+                <webcam  [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+                  [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+                  [videoOptions]="videoOptions"
+                  [imageQuality]="1"
+                  (cameraSwitched)="cameraWasSwitched($event)"
+                  (initError)="handleInitError($event)">
+                </webcam>
+              </div>
+
+              <a *ngIf="showWebcam" class="btn btn-warning btn-block" (click)="triggerSnapshot();"><i class="fas fa-camera"></i> Fotoğraf Çek</a>
+    
+            </div>
+            <div class="container" *ngIf="file" style="margin-top: 20px;">
+              <div class="row" *ngIf="percentage | async as pct">
+                <progress style="height: 24px;margin-right: 10px;" max="100" [value]="pct"></progress>
+                <p>{{ pct | number }}% </p>
+                <div class="ldBar label-center" style="width:50%;height:50%;margin:auto" data-value="35" data-preset="circle">
+                </div>
+              </div>
+              <div *ngIf="snapshot | async as snap">
+                <!-- {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }} -->
+                <div *ngIf="uploaded as url">
+                  <img src="{{uploaded}}" width="100%">
+                  <p class="text-center arabic" style="color: #00c851 !important">تم تحميل الصورة الشخصية بنجاح</p>
+                </div> 
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div *ngIf="!percentage2" style="margin-bottom:10px">
+              <i class="fas fa-passport center text-center" style="font-size: 75px;"></i>
+            </div>
+            <div class="file">
+              <div class="center" style="width: 65%;">
+                <label for="file-upload2" class="custom-file-upload">
+                  <i class="fas fa-cloud-upload-alt"></i> Pasaport Ekle
+                </label>
+                <a class="btn btn-warning btn-block" (click)="openCameraPassport()" *ngIf="!showWebcamPassport">
+                  <i class="fas fa-camera"></i> Kamera
+                </a>
+                <input id="file-upload2" (change)="onDrop2($event.target.files)" type="file"/>
+              </div>
+
+              <div class="snapshot" style="width: 100%;" *ngIf="webcamImagePassport">
+                <img width="100%" [src]="webcamImagePassport.imageAsDataUrl"/>
+              </div>
+              <div style="width: 100%;">
+                <webcam  [height]="500" [width]="500" [trigger]="triggerObservablePassport" (imageCapture)="handleImagePassport($event)" *ngIf="showWebcamPassport"
+                  [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+                  [videoOptions]="videoOptions"
+                  [imageQuality]="1"
+                  (cameraSwitched)="cameraWasSwitched($event)"
+                  (initError)="handleInitError($event)">
+                </webcam>
+              </div>
+              <a *ngIf="showWebcamPassport" class="btn btn-warning btn-block" (click)="triggerSnapshotPassport();"><i class="fas fa-camera"></i> Fotoğraf Çek</a>
+
+            </div>
+            <div class="container" *ngIf="file" style="margin-top: 20px;">
+              <div class="row" *ngIf="percentage2 | async as pct">
+                <progress style="height: 24px;margin-right: 10px;" max="100" [value]="pct"></progress>
+                <p>{{ pct | number }}% </p>
+                <div class="ldBar label-center" style="width:50%;height:50%;margin:auto" data-value="35" data-preset="circle">
+                </div>
+              </div>
+              <div *ngIf="snapshot2 | async as snap">
+                <!-- {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }} -->
+                <div *ngIf="uploadedPassport as url">
+                  <img src="{{uploadedPassport}}" width="100%">
+                  <p class="text-center arabic" style="color: #00c851 !important">تم تحميل صورة الجواز بنجاح</p>
+                </div> 
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div *ngIf="!percentage3" style="margin-bottom:10px">
+              <i class="fas fa-id-card center text-center" style="font-size: 75px;"></i>
+            </div>
+            <div class="file">
+              <div class="center" style="width: 58%;">
+                <label for="file-upload3" class="custom-file-upload">
+                  <i class="fas fa-cloud-upload-alt"></i> Kimlik Ekle
+                </label>
+                <a class="btn btn-warning btn-block" (click)="openCameraId()" *ngIf="!showWebcamId">
+                  <i class="fas fa-camera"></i> Kamera
+                </a>
+                <input id="file-upload3" (change)="onDrop3($event.target.files)" type="file"/>
+              </div>
+
+              <div class="snapshot" style="width: 100%;" *ngIf="webcamImageId">
+                <img width="100%" [src]="webcamImageId.imageAsDataUrl"/>
+              </div>
+              <div style="width: 100%;">
+                <webcam  [height]="500" [width]="500" [trigger]="triggerObservableId" (imageCapture)="handleImageId($event)" *ngIf="showWebcamId"
+                  [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+                  [videoOptions]="videoOptions"
+                  [imageQuality]="1"
+                  (cameraSwitched)="cameraWasSwitched($event)"
+                  (initError)="handleInitError($event)">
+                </webcam>
+              </div>
+              <a *ngIf="showWebcamId" class="btn btn-warning btn-block" (click)="triggerSnapshotId();"><i class="fas fa-camera"></i> Fotoğraf Çek</a>
+    
+            </div>
+            <div class="container" *ngIf="file" style="margin-top: 20px;">
+              <div class="row" *ngIf="percentage3 | async as pct">
+                <progress style="height: 24px;margin-right: 10px;" max="100" [value]="pct"></progress>
+                <p>{{ pct | number }}% </p>
+                <div class="ldBar label-center" style="width:50%;height:50%;margin:auto" data-value="35" data-preset="circle">
+                </div>
+              </div>
+              <div *ngIf="snapshot3 | async as snap">
+                <!-- {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }} -->
+                <div *ngIf="uploadedId as url">
+                  <img src="{{uploadedId}}" width="100%">
+                  <p class="text-center arabic" style="color: #00c851 !important">تم تحميل صورة الهوية</p>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 center" style="margin-top: 2%;">
+        <div class="card card-body turkish">
+          <h2 class="text-center arabic">- معلومات عامة -</h2>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="md-form">
+                <i class="fas fa-sort-numeric-up prefix"></i>
+                <input mdbValidate mdbInput formControlName="seriNo" type="text" class="form-control" required>
+                <label>Seri No:</label>
+                <mdb-error *ngIf="formErrors.seriNo">
+                  {{formErrors.seriNo}}
+                </mdb-error>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="md-form">
+                <i class="fas fa-fingerprint prefix"></i>
+                <input mdbValidate mdbInput onlyNumber formControlName="TC" type="text" class="form-control" pattern="[0-9]*" required>
+                <label>TC:</label>
+                <mdb-error *ngIf="formErrors.TC">
+                  {{formErrors.TC}}
+                </mdb-error>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="md-form">
+                <i class="fas fa-passport prefix"></i>
+                <input mdbValidate mdbInput formControlName="passport" type="text" class="form-control" required>
+                <label>Pasaport:</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="md-form">
+                <i class="far fa-file-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="id" type="text" class="form-control" required>
+                <label>Sicil No:</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="md-form">
+                <i class="fas fa-fingerprint prefix"></i>
+                <input mdbValidate mdbInput onlyNumber formControlName="council_Id" type="text" class="form-control" pattern="[0-9]*" required>
+                <label>YEREL MECLİS kimlik No :</label>
+                <mdb-error *ngIf="formErrors.council_Id">
+                  {{formErrors.council_Id}}
+                </mdb-error>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="md-form">
+                <!-- <i class="fas fa-calendar-week prefix"></i> -->
+                <input mdbValidate mdbInput formControlName="dateBirth" type="date" class="form-control" required>
+                <label>Doğum tarihi:</label>
+                <!-- <mat-form-field>
+                  <mat-label>Doğum tarihi:</mat-label>
+                  <input matInput [matDatepicker]="dp" [formControl]="picker_date" formControlName="dateBirth" disabled required>
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker touchUi #dp disabled="false"></mat-datepicker>
+                </mat-form-field> -->
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="md-form">
+                <i class="fas fa-phone prefix"></i>
+                <input mdbValidate mdbInput formControlName="phone" type="text" class="form-control" required>
+                <label>Telefon No:</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="md-form">
+                <i class="fab fa-whatsapp prefix"></i>
+                <input mdbValidate mdbInput formControlName="whatsApp" type="text" class="form-control" required>
+                <label>WhatsApp:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Herhangi bir ticaret odasında kayıtlı mısınız ?</mat-label>
+                <mat-select formControlName="roomRecord" required>
+                  <mat-option value="yes">
+                    EVET
+                  </mat-option>
+                  <mat-option value="no">
+                    HAYIR
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Herhangi bir TİCARET Odasına kayıtlı 1. Derece akraba var mı?</mat-label>
+                <mat-select formControlName="relative_roomRecord" required>
+                  <mat-option value="yes">
+                    EVET
+                  </mat-option>
+                  <mat-option value="no">
+                    HAYIR
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" style="margin-bottom: 1.5; margin-top: 5%;">
+        <div class="card card-body turkish">
+          <h2 class="text-center turkish">- Türkçe -</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="nameTR" type="text" class="form-control" required>
+                <label>Adı:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="lastnameTR" type="text" class="form-control" required>
+                <label>Soyadı:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="fatherTR" type="text" class="form-control" required>
+                <label>Baba Adı:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="motherTR" type="text" class="form-control" required>
+                <label>Anne Adı:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-map-marker-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="placeBirthTR" type="text" class="form-control" required>
+                <label>Doğum Yeri:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-map-marker-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="cityTR" type="text" class="form-control" required>
+                <label>Kayıt yaptığı il:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-map-marker-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="currentAdressTR" type="text" class="form-control" required>
+                <label>Mevcut Adres:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-map-marker-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="laterAdressTR" type="text" class="form-control" required>
+                <label>Devrim öncesi Adres:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="otherNationalityTR" type="text" class="form-control" required>
+                <label>Diğer Uyruğu:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-university prefix"></i>
+                <input mdbValidate mdbInput formControlName="educationTR" type="text" class="form-control" required>
+                <label>Eğitim:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="marriedTR" type="text" class="form-control" required>
+                <label>Medeni Halı:</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="wife_Name_TR" type="text" class="form-control" required>
+                <label>Eş Adı:</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="foundationWorkTR" type="text" class="form-control" required>
+                <label>Devrim sonrası kurumlardan birinde çalıştınız mı?:</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="family_foundationWorkTR" type="text" class="form-control" required>
+                <label>Devrim sonrası  kurumlarda çalışan aile üyesi var mı?:</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" style="margin-bottom: 1.5; margin-top: 5%;">
+        <div class="card card-body arabic">
+          <h2 class="text-center arabic">- العربية -</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="nameAR" type="text" class="form-control" required>
+                <label>الاسم </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="lastnameAR" type="text" class="form-control" required>
+                <label>الكنية</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="fatherAR" type="text" class="form-control" required>
+                <label>اسم الاب</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="motherAR" type="text" class="form-control" required>
+                <label>اسم الام</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-map-marker-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="placeBirthAR" type="text" class="form-control" required>
+                <label>مكان الولادة</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-map-marker-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="cityAR" type="text" class="form-control" required>
+                <label>القيد (من أية محافظة , بلدة )</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-map-marker-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="currentAdressAR" type="text" class="form-control" required>
+                <label>عنوان السكن الحالي</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-map-marker-alt prefix"></i>
+                <input mdbValidate mdbInput formControlName="laterAdressAR" type="text" class="form-control" required>
+                <label>عنوان السكن قبل الثورة</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="otherNationalityAR" type="text" class="form-control" required>
+                <label>جنسيات غير السورية</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-university prefix"></i>
+                <input mdbValidate mdbInput formControlName="educationAR" type="text" class="form-control" required>
+                <label>التحصيل العلمي</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="marriedAR" type="text" class="form-control" required>
+                <label>الحالة الاجتماعية</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbValidate mdbInput formControlName="wife_Name_AR" type="text" class="form-control" required>
+                <label>اسم وشهرة الزوجة</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="foundationWorkAR" type="text" class="form-control" required>
+                <label>هل عملت في احدى مؤسسات الثورة </label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="md-form">
+                <i class="fas fa-info-circle prefix"></i>
+                <input mdbValidate mdbInput formControlName="family_foundationWorkAR" type="text" class="form-control" required>
+                <label>هل احد افراد العائلة أو اكثر يعمل في مؤسسات الثورة </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-2 col-xl-2 col-6 center" style="margin-top:4%">
+      <button class="btn btn-success btn-block arabic" style="font-size:20px" [disabled]="memberForm.invalid || !downloadURL" mdbWavesEffect type="submit">إضافة عضو</button>
+    </div>
+  </form>
+</div>
+
+
+<app-footer></app-footer>

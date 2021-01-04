@@ -1,0 +1,28 @@
+table tr th span {
+    font-weight: lighter;
+}
+.personal tr th span {
+    margin-right: 25px;
+}
+
+.turkish .personal tr th span {
+    margin-left: 25px;
+}
+h3 {
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+@media print {
+    button {
+        display: none !important;
+    }
+    .table th, .table td {
+        padding: 0.50rem;
+    }
+    app-footer {
+        display: none !important;
+    }
+    app-header {
+        display: none !important;
+    }
+}

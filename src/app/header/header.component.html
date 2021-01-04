@@ -1,0 +1,58 @@
+<mdb-navbar dir="rtl" SideClass="navbar navbar-expand-lg navbar-light blue-grey lighten-5" [containerInside]="false" *ngIf="authService.userData as user">
+    <mdb-navbar-brand><span><img src="assets/1.png" height="50" width="55"></span></mdb-navbar-brand>
+    <links>
+        <ul class="navbar-nav ml-auto" >
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light arabic" routerLink="/home" mdbWavesEffect>إضافة عضو جديد<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light arabic" routerLink="/members" mdbWavesEffect>ملفات الأعضاء</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light arabic" routerLink="/traders" mdbWavesEffect>أوراق التاجر</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light arabic" routerLink="/information" mdbWavesEffect>نشرة الاستعلامات</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light arabic" routerLink="/security" mdbWavesEffect>نشرة الاستعلامات خاص</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light arabic" routerLink="/excel" mdbWavesEffect>ملفات الاكسل</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-auto nav-flex-icons">
+            <li class="nav-item" style="margin-left: 20px;" >
+            <a class="nav-link arabic" placement="bottom" (click)="authService.SignOut()" mdbTooltip="{{user.email}}">
+                <mdb-icon fas icon="sign-out-alt" size="lg"></mdb-icon>
+                تسجيل خروج
+            </a>
+            </li>
+            <li class="nav-item" style="margin-left: 20px;">
+                <a class="nav-link">
+                    <div class="btn-group" mdbDropdown>
+                        <mdb-icon fas icon="language" size="lg" mdbDropdownToggle></mdb-icon>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-primary">
+                            <a class="dropdown-item arabic" (click)="setLang('ar')" style="text-align: right;">العربية</a>
+                            <a class="dropdown-item turkish" (click)="setLang('tr')">Türkçe</a>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </links>
+</mdb-navbar>
+  
+<div class="container" style="margin-top: 1%;">
+    <div class="col-md-5 center">
+    <table>
+        <tbody>
+        <tr>
+            <td><img class="center" width="60%" src="assets/2.png" alt=""></td>
+            <td><img class="center" width="100%" src="assets/1.png" alt=""></td>
+            <td><img class="center" width="60%" src="assets/turkey.png" alt=""></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

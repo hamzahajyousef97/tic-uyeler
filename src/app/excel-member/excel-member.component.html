@@ -1,0 +1,200 @@
+<app-header></app-header>
+<div class="container-fluid" style="margin-top:2%">
+    <h2 class="text-center arabic" style="margin-bottom:5%"> اكسل ملفات الأعضاء </h2>
+    <div class="row" dir="rtl">
+ 
+        <div class="col-md-8">
+            <form novalidate [formGroup]="searchForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row" dir="rtl">
+                    <div class="col-md-5 arabic">
+                        <mat-form-field class="example-full-width arabic" style="width: 100%;" appearance="outline">
+                            <mat-label>بحث عن طريق</mat-label>
+                            <mat-select class="arabic" formControlName="searchType">
+                                <mat-option class="arabic" value="TC">رقم الـ TC</mat-option>
+                                <mat-option class="arabic" value="council_Id">رقم الـ YEREL MECLİS kimlik No</mat-option>
+                                <mat-option class="arabic" value="nameAR">اسم العضو بالعربي</mat-option>
+                                <mat-option class="arabic" value="nameTR">اسم العضو بالتركي</mat-option>
+                                <mat-option class="arabic" value="phone">رقم الهاتف</mat-option>
+                                <!-- <mat-option class="arabic" value="fees">الرسوم</mat-option> -->
+                                <mat-option class="arabic" value="fatherAR">اسم الاب بالعربي</mat-option>
+                                <mat-option class="arabic" value="motherAR">اسم الام بالعربي</mat-option>
+                                <mat-option class="arabic" value="placeBirthAR">مكان الولادة بالعربي</mat-option>
+                                <mat-option class="arabic" value="placeBirthTR">مكان الولادة بالتركي</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 arabic" *ngIf="searchForm.value.searchType != null">
+                        <mat-form-field class="example-full-width arabic" style="width: 100%;" appearance="outline">
+                            <mat-label>قيمة البحث</mat-label>
+                            <input matInput formControlName="searchValue" placeholder="اكتب قيمة البحث" type="text">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="searchForm.value.searchType != null">
+                        <button *ngIf="!searchDone" class="btn btn-success btn-block arabic" type="submit" style="margin-top: 9%;">ابحث</button>
+                        <a *ngIf="searchDone" class="btn btn-secondary btn-block arabic" (click)="getSome_members()" style="margin-top: 9%;color: #fff;">إلغاء البحث</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 text-right arabic" style="margin-bottom: 3%;" *ngIf="setting == 'active'">
+                <button class="btn btn-primary btn-block" (click)="activeExcel()"> تحميل ملف الاكسل <i style="color: #fff;" class="fas fa-file-excel"></i></button>
+            </div>
+            <div class="col-md-3 text-right arabic" style="margin-bottom: 3%;" *ngIf="setting == 'inactive'">
+                <button class="btn btn-primary btn-block" (click)="inactiveExcel()"> تحميل ملف الاكسل <i style="color: #fff;" class="fas fa-file-excel"></i></button>
+            </div>
+            <div class="col-md-3 text-right arabic" style="margin-bottom: 3%;" *ngIf="setting == 'activeIn30'">
+                <button class="btn btn-primary btn-block" (click)="activeIn30Excel()"> تحميل ملف الاكسل <i style="color: #fff;" class="fas fa-file-excel"></i></button>
+            </div>
+            <div class="col-md-3 text-right arabic ml-auto">
+                <div class="btn-group" mdbDropdown>
+                    <button mdbDropdownToggle class="btn btn-success btn-block dropdown-toggle waves-light" mdbWavesEffect>
+                        filtre
+                    </button>
+                  
+                    <div class="dropdown-menu dropdown-primary">
+                      <a class="dropdown-item" (click)="setMembers('active')">Aktif üyeler</a>
+                      <div class="divider dropdown-divider"></div>
+                      <a class="dropdown-item" (click)="setMembers('activeIn30')">30 gün içinde aktif üyeler</a>
+                      <div class="divider dropdown-divider"></div>
+                      <a class="dropdown-item" (click)="setMembers('inactive')">Aktif olmayan üyeler</a>
+                    </div>
+                </div>     
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 turksih" *ngIf="setting == 'active'">
+        <h4 class="text-center" style="margin-top: 4%; font-weight: bold;">Aktif üyeler</h4>
+        <table mdbTable hover="true" class="z-depth-1" id="active-table">
+            <thead>
+                <tr>
+                    <th [mdbTableSort]="active" sortBy="seriNo">SeriNo <i class="fas fa-arrows-alt-v"></i></th>
+                    <th>Kimlik No </th>
+                    <th>Pasaport No </th>
+                    <th>YEREL MECLİS kimlik No </th>
+                    <th>Uyruk </th>
+                    <th>Adı </th>
+                    <th>Soyadı </th>
+                    <th>Baba Adı </th>
+                    <th>Anne Adı </th>
+                    <th>Doğum tarihi </th>
+                    <th>Doğum yeri </th>
+                    <th>İzin Başlangıç tarihi  </th>
+                    <th>İzin Bitiş tarihi  </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of active; let i = index">
+                    <td scope="row">{{member.seriNo}}</td>
+                    <td>{{member.TC}}</td>
+                    <td>{{member.passport}}</td>
+                    <td>{{member.council_Id}}</td>
+                    <td>SY</td>
+                    <td>{{member.nameTR}}</td>
+                    <td>{{member.lastnameTR}}</td>
+                    <td>{{member.fatherTR}}</td>
+                    <td>{{member.motherTR}}</td>
+                    <td>{{member.dateBirth}}</td>
+                    <td>{{member.placeBirthTR}}</td>
+                    <td>{{member.start_PermitDate}}</td>
+                    <td>{{member.end_PermitDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-spinner style="margin-top: 15px;" class="center" *ngIf="spinner"></mat-spinner>
+    </div>
+    <div class="col-md-12 turksih" *ngIf="setting == 'inactive'">
+        <h4 class="text-center" style="margin-top: 4%; font-weight: bold;">Aktif olmayan üyeler</h4>
+        <table mdbTable hover="true" class="z-depth-1" id="inactive-table">
+            <thead>
+                <tr>
+                    <th [mdbTableSort]="notActive" sortBy="seriNo">SeriNo <i class="fas fa-arrows-alt-v"></i></th>
+                    <th>Kimlik No </th>
+                    <th>Pasaport No </th>
+                    <th>YEREL MECLİS kimlik No </th>
+                    <th>Uyruk </th>
+                    <th>Adı </th>
+                    <th>Soyadı </th>
+                    <th>Baba Adı </th>
+                    <th>Anne Adı </th>
+                    <th>Doğum tarihi </th>
+                    <th>Doğum yeri </th>
+                    <th>İzin Başlangıç tarihi  </th>
+                    <th>İzin Bitiş tarihi  </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!spinner">
+                <tr *ngFor="let member of notActive; let i = index">
+                    <td scope="row">{{member.seriNo}}</td>
+                    <td>{{member.TC}}</td>
+                    <td>{{member.passport}}</td>
+                    <td>{{member.council_Id}}</td>
+                    <td>SY</td>
+                    <td>{{member.nameTR}}</td>
+                    <td>{{member.lastnameTR}}</td>
+                    <td>{{member.fatherTR}}</td>
+                    <td>{{member.motherTR}}</td>
+                    <td>{{member.dateBirth}}</td>
+                    <td>{{member.placeBirthTR}}</td>
+                    <td>{{member.start_PermitDate}}</td>
+                    <td>{{member.end_PermitDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-spinner style="margin-top: 15px;" class="center" *ngIf="spinner"></mat-spinner>
+    </div>
+    <div class="col-md-12 turksih" *ngIf="setting == 'activeIn30'">
+        <h4 class="text-center" style="margin-top: 4%; font-weight: bold;">30 gün içinde aktif üyeler</h4>
+        <table mdbTable hover="true" class="z-depth-1" id="activeIn30-table">
+            <thead>
+                <tr>
+                    <th [mdbTableSort]="activeIn_30" sortBy="seriNo">SeriNo <i class="fas fa-arrows-alt-v"></i></th>
+                    <th>Kimlik No </th>
+                    <th>Pasaport No </th>
+                    <th>YEREL MECLİS kimlik No </th>
+                    <th>Uyruk </th>
+                    <th>Adı </th>
+                    <th>Soyadı </th>
+                    <th>Baba Adı </th>
+                    <th>Anne Adı </th>
+                    <th>Doğum tarihi </th>
+                    <th>Doğum yeri </th>
+                    <th>İzin Başlangıç tarihi  </th>
+                    <th>İzin Bitiş tarihi  </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!spinner">
+                <tr *ngFor="let member of activeIn_30; let i = index">
+                    <td scope="row">{{member.seriNo}}</td>
+                    <td>{{member.TC}}</td>
+                    <td>{{member.passport}}</td>
+                    <td>{{member.council_Id}}</td>
+                    <td>SY</td>
+                    <td>{{member.nameTR}}</td>
+                    <td>{{member.lastnameTR}}</td>
+                    <td>{{member.fatherTR}}</td>
+                    <td>{{member.motherTR}}</td>
+                    <td>{{member.dateBirth}}</td>
+                    <td>{{member.placeBirthTR}}</td>
+                    <td>{{member.start_PermitDate}}</td>
+                    <td>{{member.end_PermitDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-spinner style="margin-top: 15px;" class="center" *ngIf="spinner"></mat-spinner>
+    </div>
+
+    <p class="text-center arabic mt-4" style="color: red;" *ngIf="wrongSearch">  
+        لا توجد نتيجة مطابقة
+    </p>
+    <div class="col-md-3 center mt-4" *ngIf="firstload && !searchDone && !wrongSearch && !spinner">
+        <button class="btn btn-link btn-block arabic" (click)="getAllMembers()">عرض المزيد</button>
+    </div>
+</div>
+
+<app-footer></app-footer>

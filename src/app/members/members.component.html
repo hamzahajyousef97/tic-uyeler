@@ -1,0 +1,129 @@
+<app-header></app-header>
+  <div class="container" style="margin-top:2%">
+    <h2 class="text-center arabic" style="margin-bottom:5%">ابحث بالاعضاء الموجودة</h2>
+    <div class="row" dir="rtl">
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width arabic" appearance="outline" style="width: 100%;">
+          <mat-label>ابحث هنا <i class="fas fa-search prefix"></i> </mat-label>
+          <input placeholder="ابحث في الاعضاء الموجودة اسفل" matInput [(ngModel)]="searchText" type="search">
+        </mat-form-field>
+      </div>
+      <div class="col-md-8">
+        <form novalidate [formGroup]="searchForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+          <div class="row" dir="rtl">
+            <div class="col-md-5 arabic">
+              <mat-form-field class="example-full-width arabic" style="width: 100%;" appearance="outline">
+                  <mat-label>بحث عن طريق</mat-label>
+                  <mat-select class="arabic" formControlName="searchType">
+                      <mat-option class="arabic" value="TC">رقم الـ TC</mat-option>
+                      <mat-option class="arabic" value="council_Id">رقم الـ YEREL MECLİS kimlik No</mat-option>
+                      <mat-option class="arabic" value="nameAR">اسم العضو بالعربي</mat-option>
+                      <mat-option class="arabic" value="nameTR">اسم العضو بالتركي</mat-option>
+                      <mat-option class="arabic" value="phone">رقم الهاتف</mat-option>
+                      <!-- <mat-option class="arabic" value="fees">الرسوم</mat-option> -->
+                      <mat-option class="arabic" value="fatherAR">اسم الاب بالعربي</mat-option>
+                      <mat-option class="arabic" value="motherAR">اسم الام بالعربي</mat-option>
+                      <mat-option class="arabic" value="placeBirthAR">مكان الولادة بالعربي</mat-option>
+                      <mat-option class="arabic" value="placeBirthTR">مكان الولادة بالتركي</mat-option>
+                  </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 arabic" *ngIf="searchForm.value.searchType != null">
+              <mat-form-field class="example-full-width arabic" style="width: 100%;" appearance="outline">
+                <mat-label>قيمة البحث</mat-label>
+                <input matInput formControlName="searchValue" placeholder="اكتب قيمة البحث" type="text">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="searchForm.value.searchType != null">
+              <button *ngIf="!searchDone" class="btn btn-success btn-block arabic" type="submit" style="margin-top: 9%;">ابحث</button>
+              <a *ngIf="searchDone" class="btn btn-secondary btn-block arabic" (click)="getSome_members()" style="margin-top: 9%;color: #fff;">إلغاء البحث</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <table mdbTable hover="true" class="z-depth-1" *ngIf="showTable">
+        <thead>
+        <tr class="arabic">
+          <th style="text-align: center;"> <a>الصورة </a></th>
+          <th style="text-align: center;" [mdbTableSort]="members" sortBy="seriNo"><a>رقم التسلسل <i class="fas fa-arrows-alt-v"></i></a></th>
+          <th style="text-align: center;"><a>الاسم والشهرة </a></th>
+          <th style="text-align: center;"> <a>رقم الهاتف</a></th>
+          <th style="text-align: center;">( تعديل - اوراق التاجر - ملف الاستعلامات - الاستعلامات خاص )</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let member of members | filter:searchText; let i = index" placement="right" mdbTooltip="{{i+1}}">
+          <td style="text-align: center;padding: 6px;">
+            <img style="left: 0;border-radius: 50%!important;box-shadow: 0 10px 25px 0 rgba(0,0,0,.3);" width="85px" height="85px" src="{{member.image}}">
+          </td>
+          <th style="text-align: center;" scope="row">{{member.seriNo}}</th>
+          <td class="arabic" style="text-align: center;">{{member.nameAR}} {{member.lastnameAR}}</td>
+          <td class="arabic" style="text-align: center;">{{member.phone}}</td>
+          <td style="text-align: center;">
+            <a [routerLink]="['/edit-security', member._id]" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip=" إضافة وتعديل الاستعلامات خاص" class="btn btn-success"><i style="color: #fff;" class="fas fa-user-lock"></i></a>
+            <a [routerLink]="['/edit-information', member._id]" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip=" إضافة وتعديل الاستعلامات" class="btn btn-success"><i style="color: #fff" class="fas fa-info-circle"></i></a>
+            <a [routerLink]="['/edit-trader', member._id]" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip="إضافة وتعديل أوراق التاجر " class="btn btn-success"><i style="color: #fff" class="far fa-sticky-note"></i></a>
+            <a [routerLink]="['/edit-member', member._id]" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip="تعديل معلومات العضو" class="btn btn-warning"><i style="color: rgb(0, 0, 0)" class="fas fa-edit"></i></a>
+            <a (click)="deleteModal.show()" style="margin-left: 5px;margin-right: 5px;" placement="bottom" mdbTooltip="حذف العضو" class="btn btn-danger"><i style="color: #fff" class="fas fa-trash-alt"></i></a>
+            <i *ngIf="calculateDiff(member.end_PermitDate) == 'Active'" style="float: right;font-size: 24px;color: #00c851;" class="far fa-check-circle"></i>
+            <i *ngIf="calculateDiff(member.end_PermitDate) == '30_days'" style="float: right;font-size: 24px;color: #ffc107;" class="fas fa-exclamation-circle"></i>
+            <i *ngIf="calculateDiff(member.end_PermitDate) == 'inactive'" style="float: right;font-size: 24px;color: red;" class="far fa-times-circle"></i>
+
+            <i *ngIf="member.fees == 'fee'" style="margin-right: 5px;float: right;font-size: 24px;color: #00c851;" class="fas fa-dollar-sign"></i>
+            <i *ngIf="member.fees == 'No_fee' || member.fees == null" style="margin-right: 5px;float: right;font-size: 24px;color: red;" class="fas fa-dollar-sign"></i>
+          </td>
+          <div mdbModal #deleteModal="mdbModal" class="modal fade right" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"aria-hidden="true">
+            <div class="modal-dialog" dir="rtl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header arabic ">
+                        <p style="width: 100%;" class="text-center">
+                          - هل تريد حذف هذا العضو - 
+                        </p>
+                    </div>
+                    <div class="modal-body">
+                      <p class="text-center arabic">
+                        اذا قمت بحذف <span style="font-weight: bold;">{{member.nameAR}} {{member.lastnameAR}}</span>، ستتم ازالة جميع البيانات المضافة اليه من الموقع ولا يمكن استرجاعه مرة اخرى
+                      </p>
+                      <div class="col-md-8" style="float: right;">
+                        <div class="form-group arabic">
+                          <input type="text" class="form-control" placeholder="قم بكتابة الرقم السري" [(ngModel)]="passcode">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-md-6 center">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <button *ngIf="password != passcode" class="btn btn-danger btn-block relative waves-light disabled" mdbWavesEffect>نعم</button>
+                              <button *ngIf="password == passcode" class="btn btn-danger btn-block relative waves-light" (click)="deleteMember(member._id); deleteModal.hide()" mdbWavesEffect>نعم</button>
+                            </div>
+                            <div class="col-md-6"> 
+                              <button class="btn btn-secondary btn-block waves-light" aria-label="Close" (click)="deleteModal.hide()" mdbWavesEffect>إلغاء</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </tr>
+        </tbody>
+      </table>
+        <p class="text-center arabic mt-4" style="color: red;" *ngIf="wrongSearch">  
+          لا توجد نتيجة مطابقة
+        </p>
+        <div class="col-md-3 center mt-4" *ngIf="firstload && !searchDone && !wrongSearch && !spinner">
+          <button class="btn btn-link btn-block arabic" (click)="getExtra_members()">عرض المزيد</button>
+        </div>
+      <div class="col-md-3 center mt-4" *ngIf="secondload && !searchDone && !wrongSearch && !spinner">
+          <button class="btn btn-link btn-block arabic" (click)="getAllMembers()">عرض المزيد</button>
+      </div>
+      <mat-spinner style="margin-top: 15px;" class="center" *ngIf="spinner"></mat-spinner>
+    </div>
+  </div>
+  <br><br>
+  <app-footer></app-footer>

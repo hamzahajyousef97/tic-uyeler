@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.arabic {
+    font-family: 'Tajawal', sans-serif !important;
+}
+.turkish { 
+    font-family: "Lucida Grande","LucidaGrande",Arial,sans-serif;
+}
+body {
+    background: rgb(245, 245, 245) !important;
+}
+
+.navbar.navbar-light .breadcrumb .nav-item.active>.nav-link, .navbar.navbar-light .navbar-nav .nav-item.active>.nav-link {
+    border-radius: 4px !important;
+}
+
+input[type=button] {
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #ced4da;
+    border-radius: 0;
+    box-sizing: content-box;
+    background-color: transparent;
+}
+
+video {
+    width: 100% !important;
+}

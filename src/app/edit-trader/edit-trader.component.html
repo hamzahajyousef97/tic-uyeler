@@ -1,0 +1,235 @@
+<app-header></app-header>
+  <div class="container-fluid" style="margin-top: 3%">
+    <h2 class="text-center arabic">إضافة اوراق التاجر لـ {{item.nameAR}} {{item.lastnameAR}}</h2>
+    <br>
+    <br>
+    <form novalidate [formGroup]="memberForm" #fform="ngForm" (ngSubmit)="onSubmit()" style=" margin-bottom: 2.5%;">
+      <div class="row">
+        <div class="col-md-4">
+          <div *ngIf="!percentage" style="margin-bottom:10px">
+            <i *ngIf="item.certificate == null" class="fas fa-certificate center text-center" style="font-size: 75px;"></i>
+            <img *ngIf="item.certificate" class="center" style="left: 0;border-radius: 5px!important;box-shadow: 0 10px 25px 0 rgba(0,0,0,.3);" width="100%" src="{{item.certificate}}">
+          </div>
+          <div class="file">
+            <div class="center" style="width: 56%;">
+              <label for="file-upload" class="custom-file-upload">
+                <i class="fas fa-cloud-upload-alt"></i> Tüccar Tescil Belgesi Ekle
+              </label>
+              <input id="file-upload" (change)="onDrop($event.target.files)" type="file"/>
+            </div>
+  
+          </div>
+          <div class="container" *ngIf="file" style="margin-top: 20px;">
+            <div class="row" *ngIf="percentage | async as pct">
+              <progress style="height: 24px;margin-right: 10px;" max="100" [value]="pct"></progress>
+              <p>{{ pct | number }}% </p>
+              <div class="ldBar label-center" style="width:50%;height:50%;margin:auto" data-value="35" data-preset="circle">
+              </div>
+            </div>
+            <div *ngIf="snapshot | async as snap">
+              <!-- {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }} -->
+              <div *ngIf="downloadURL as url">
+                <img src="{{downloadURL}}" width="100%">
+                <p class="text-center arabic" style="color: #00c851 !important">تم تحميل الصورة الشخصية بنجاح</p>
+              </div> 
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="card card-body arabic">
+            <h2 class="text-center arabic">- معلومات مشتركة -</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-fingerprint prefix"></i>
+                  <input mdbValidate mdbInput formControlName="TC" onlyNumber [(ngModel)]="item.TC" type="text" class="form-control" required>
+                  <label>رقم الكملك التركي</label>
+                  <mdb-error *ngIf="formErrors.TC">
+                    {{formErrors.TC}}
+                  </mdb-error>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-passport prefix"></i>
+                  <input mdbValidate mdbInput formControlName="passport" [(ngModel)]="item.passport" type="text" class="form-control" required>
+                  <label>رقم جواز السفر</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-fingerprint prefix"></i>
+                  <input mdbValidate mdbInput onlyNumber pattern="[0-9]*" formControlName="council_Id" [(ngModel)]="item.council_Id" type="text" class="form-control">
+                  <label>رقم هوية المجلس</label>
+                  <mdb-error *ngIf="formErrors.council_Id">
+                    {{formErrors.council_Id}}
+                  </mdb-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" style="margin-bottom: 1.5; margin-top: 5%;">
+          <div class="card card-body turkish">
+            <h2 class="text-center turkish">- Türkçe -</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="companyNameTR" [(ngModel)]="item.companyNameTR" type="text" class="form-control" required>
+                  <label>Şirket adı</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-map-marker-alt prefix"></i>
+                  <input mdbValidate mdbInput formControlName="companyAddressTR" [(ngModel)]="item.companyAddressTR" type="text" class="form-control" required>
+                  <label>Şirket adresi</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="companyWorkTR" [(ngModel)]="item.companyWorkTR" type="text" class="form-control" required>
+                  <label>Şirket Faaliyet Alanı</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-money-bill-wave prefix"></i>
+                  <input mdbValidate onlyNumber mdbInput formControlName="company_fundTR" [(ngModel)]="item.company_fundTR" type="text" class="form-control" required>
+                  <label>Şirketin sermayesi TL</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="companyOriginTR" [(ngModel)]="item.companyOriginTR" type="text" class="form-control" required>
+                  <label>Şirket uyruğu</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="company_managerNameTR" [(ngModel)]="item.company_managerNameTR"  type="text" class="form-control" required>
+                  <label>Şirket müdürünün adı</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-home prefix"></i>
+                  <input mdbValidate mdbInput formControlName="currentAdressTR" [(ngModel)]="item.currentAdressTR" type="text" class="form-control" required>
+                  <label>Mevcut ikamet yeri</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-home prefix"></i>
+                  <input mdbValidate mdbInput formControlName="TCplaceTR" [(ngModel)]="item.TCplaceTR" type="text" class="form-control" required>
+                  <label>(AFAD/MISAFİR) Kimlik verildiği yer</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-home prefix"></i>
+                  <input mdbValidate mdbInput formControlName="passport_placeTR" [(ngModel)]="item.passport_placeTR" type="text" class="form-control" required>
+                  <label>Pasaportun verildiği yer</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-home prefix"></i>
+                  <input mdbValidate mdbInput formControlName="council_placeTR" [(ngModel)]="item.council_placeTR" type="text" class="form-control" required>
+                  <label>YEREL MECLİS kimlik verildiği yer</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" style="margin-bottom: 1.5; margin-top: 5%;">
+          <div class="card card-body arabic">
+            <h2 class="text-center arabic">- العربية -</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="companyNameAR" [(ngModel)]="item.companyNameAR" type="text" class="form-control" required>
+                  <label>اسم الشركة</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-map-marker-alt prefix"></i>
+                  <input mdbValidate mdbInput formControlName="companyAddressAR" [(ngModel)]="item.companyAddressAR" type="text" class="form-control" required>
+                  <label>عنوان الشركة</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="companyWorkAR" [(ngModel)]="item.companyWorkAR" type="text" class="form-control" required>
+                  <label>مجال عمل الشركة</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-money-bill-wave prefix"></i>
+                  <input mdbValidate onlyNumber mdbInput formControlName="company_fundAR" [(ngModel)]="item.company_fundAR" type="text" class="form-control" required>
+                  <label> رأسمال الشركة بالليرة التركية فقط</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="companyOriginAR" [(ngModel)]="item.companyOriginAR" type="text" class="form-control" required>
+                  <label>جنسية الشركة</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-info-circle prefix"></i>
+                  <input mdbValidate mdbInput formControlName="company_managerNameAR" [(ngModel)]="item.company_managerNameAR" type="text" class="form-control" required>
+                  <label>اسم مدير الشركة</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-home prefix"></i>
+                  <input mdbValidate mdbInput formControlName="currentAdressAR" [(ngModel)]="item.currentAdressAR" type="text" class="form-control" required>
+                  <label>مكان الاقامة الحالي</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-home prefix"></i>
+                  <input mdbValidate mdbInput formControlName="TCplaceAR" [(ngModel)]="item.TCplaceAR" type="text" class="form-control" required>
+                  <label>مكان اصدار الكملك التركي </label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-home prefix"></i>
+                  <input mdbValidate mdbInput formControlName="passport_placeAR" [(ngModel)]="item.passport_placeAR" type="text" class="form-control" required>
+                  <label>مكان اصدار جواز السفر </label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="md-form">
+                  <i class="fas fa-home prefix"></i>
+                  <input mdbValidate mdbInput formControlName="council_placeAR" [(ngModel)]="item.council_placeAR" type="text" class="form-control" required>
+                  <label>مكان اصدار هوية  المجلس </label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 center" style="margin-top:4%">
+        <button class="btn btn-success btn-block arabic" style="font-size:20px" [disabled]="memberForm.invalid" mdbWavesEffect type="submit">إضافة وتعديل أوراق التاجر</button>
+      </div>
+    </form>
+  </div>
+
+  <app-footer></app-footer>

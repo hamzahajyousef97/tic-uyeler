@@ -1,0 +1,130 @@
+<app-header></app-header>
+
+<div class="container-fluid" style="margin-top: 3%">
+    <h2 class="text-center arabic">إضافة ولد / بنت لــ {{item.nameAR}}</h2>
+    <br>
+    <br>
+    <form novalidate [formGroup]="childForm" #fform="ngForm" (ngSubmit)="onSubmit()" style=" margin-bottom: 2.5%;">
+        <div class="row">
+            <div class="col-md-8 center">
+                <div class="card card-body arabic">
+                    <h2 class="text-center arabic">- معلومات مشتركة -</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="md-form">
+                                <i class="fas fa-sort-numeric-up prefix"></i>
+                                <input mdbValidate mdbInput formControlName="seriNo" type="text" class="form-control" required>
+                                <label>الرقم التسلسلي</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group" dir="rtl">
+                                <label for="exampleFormControlSelect1" style="float: right;">الجنس</label>
+                                <select formControlName="sex" class="form-control" id="exampleFormControlSelect1">
+                                    <option value="male">ذكر</option>
+                                    <option value="female">انثى</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="md-form">
+                                <!-- <i class="fas fa-calendar-week prefix"></i> -->
+                                <input mdbValidate mdbInput formControlName="dateBirth" type="date" class="form-control" required>
+                                <label>تاريخ الولادة</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 1.5; margin-top: 5%;">
+                <div class="card card-body turkish">
+                    <h2 class="text-center turkish">- Türkçe -</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-info-circle prefix"></i>
+                                <input mdbValidate mdbInput formControlName="nameTR" type="text" class="form-control" required>
+                                <label >Adı ve Soyadı</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-map-marker-alt prefix"></i>
+                                <input mdbValidate mdbInput formControlName="placeBirthTR" type="text" class="form-control" required>
+                                <label>Doğum Yeri</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-info-circle prefix"></i>
+                                <input mdbValidate mdbInput formControlName="addressTR" type="text"  class="form-control" required>
+                                <label>Ev Adresi</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-map-marker-alt prefix"></i>
+                                <input mdbValidate mdbInput formControlName="workTR" type="text" class="form-control" required>
+                                <label>İş</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-info-circle prefix"></i>
+                                <input mdbValidate mdbInput formControlName="marriedTR" type="text" class="form-control" required>
+                                <label>Medeni Halı</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 1.5; margin-top: 5%;">
+                <div class="card card-body arabic">
+                    <h2 class="text-center arabic">- العربية -</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-info-circle prefix"></i>
+                                <input mdbValidate mdbInput formControlName="nameAR" type="text" class="form-control" required>
+                                <label  style="text-align: right;">الاسم والشهرة</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-map-marker-alt prefix"></i>
+                                <input mdbValidate mdbInput formControlName="placeBirthAR" type="text" class="form-control" required>
+                                <label>مكان الولادة</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-info-circle prefix"></i>
+                                <input mdbValidate mdbInput formControlName="addressAR" type="text" class="form-control" required>
+                                <label>عنوان السكن</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-map-marker-alt prefix"></i>
+                                <input mdbValidate mdbInput formControlName="workAR" type="text" class="form-control" required>
+                                <label>العمل</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fas fa-info-circle prefix"></i>
+                                <input mdbValidate mdbInput formControlName="marriedAR" type="text" class="form-control" required>
+                                <label>الحالة الاجتماعية</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 center" style="margin-top:10%">
+            <button class="btn btn-success btn-block arabic" style="font-size:20px" [disabled]="childForm.invalid" mdbWavesEffect type="submit">إضافة</button>
+        </div>
+    </form>
+</div>
+
+<app-footer></app-footer>

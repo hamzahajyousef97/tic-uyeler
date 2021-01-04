@@ -1,0 +1,340 @@
+<app-header></app-header>
+
+<div class="container-fluid" id="print-section" *ngIf="item && globals.lang == 'ar'">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img style="border-radius: 5px;" width="65%" src="{{item.image}}" alt="" >
+            </div>
+            <div class="col-md-4 arabic text-center">
+                <br><br>
+                <h1>
+                    نشرة استعلامات
+                </h1>
+                <p>
+                    (مرفقة بصورة الهوية الشخصية)
+                </p>
+                <p>
+                    غرفة صناعة وتجارة الراعي
+                </p>
+            </div>
+            <div class="col-md-4 arabic text-right" dir="rtl">
+                <h4>
+                    الجُمهوريّة العربيّة الســُّـــوريّة
+                </h4>
+                <h4>
+                    الأمن العام الوطني في الرّاعي
+                </h4>
+                <h4>
+                    مكتب الدّراســــــــــــــــــــــــــــــــــــــــــــــات
+                </h4>
+                <br>
+                <h5>
+                        <span>رقم تسلسل : </span>
+                        {{item.seriNo}}   
+                </h5>
+                <h5>
+                        <span>تاريخ الاستمارة : </span>
+                        ( {{item.createdAt.toDate() | date:'d/M/y'}} ) 
+                </h5>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 1%;" dir="rtl">
+        <div class="col-md-12 center arabic">
+            <h4 class="text-center" style="font-weight: bold;">البيانات الشخصية</h4>
+            <table class="table table-bordered text-right personal">
+                <tr>
+                    <th>الاسم والشهرة : <span>{{item.nameAR}} {{item.lastnameAR}}</span></th>
+                    <th>اسم وشهرة (الزوج / الزوجة) : <span>{{item.wife_Name_AR}}</span></th>
+                </tr>
+                <tr>
+                    <th>اسم الاب : <span>{{item.fatherAR}}</span></th>
+                    <th>عدد الأولاد : <span>{{numberChildren}}</span></th>
+                </tr>
+                <tr>
+                    <th>اسم الأم : <span>{{item.motherAR}}</span></th>
+                    <th>العمل الحالي : <span>{{item.currentWorkAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>مكان وتاريخ الولادة : <span>{{item.placeBirthAR}} -- {{item.dateBirth}}</span></th>
+                    <th>عنوان مكان العمل الحالي : <span>{{item.currentWork_addresAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>القيد (محافظة، بلدة) : <span>{{item.cityAR}}</span></th>
+                    <th>العمل ما قبل الثورة : <span>{{item.laterWorkAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>عنوان السكن الحالي : <span>{{item.currentAdressAR}}</span></th>
+                    <th>عنوان مكان العمل ما قبل الثورة : <span>{{item.laterWork_addresAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>عنوان السكن قبل الثورة : <span>{{item.laterAdressAR}}</span></th>
+                    <th>القومية (عرب، تركمان، كرد) : <span>{{item.ethnicAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>رقم هاتف اتصال : <span>{{item.phone}}</span></th>
+                    <th>الديانة : 
+                        <span *ngIf="item.religion == 'm'">
+                            مسلم
+                        </span>
+                        <span *ngIf="item.religion == 'h'">
+                            مسيحي
+                        </span>
+                    </th>
+                </tr>
+                <tr>
+                    <th>رقم هاتف وتس اب : <span>{{item.whatsApp}}</span></th>
+                    <th>العشيرة : <span>{{item.clanAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>جنسيات غير سورية : <span>{{item.otherNationalityAR}}</span></th>
+                    <th>سوايق جنائية إن وجد : <span>{{item.criminalRecordAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>التحصيل العلمي : <span>{{item.educationAR}}</span></th>
+                    <th>المشاركة بالثورة : <span *ngIf="item.revolution">يوجد</span> <span *ngIf="!item.revolution">لا يوجد</span></th>
+                </tr>
+                <tr>
+                    <th>الحالة الاجتماعية : <span>{{item.marriedAR}}</span></th>
+                    <th>انتماء الى تنظيمات ارهابية : <span>{{item.terrorismAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>هل عملت في احدى مؤسسات الثورة : <span>{{item.foundationWorkAR}}</span></th>
+                    <th>الزوجة تعمل او لا تعمل : <span>{{item.wifeWorkAR}}</span></th>
+                </tr>
+            </table>
+            <table class="table table-bordered text-right personal" style="margin-top: -1rem;">
+                <tr>
+                    <th>هل يوجد لديك سجل سابق في أي غرفة تجارية اخرى  : 
+                        <span *ngIf="item.roomRecord == 'yes'">
+                            نعم
+                        </span>
+                        <span *ngIf="item.roomRecord == 'no'">
+                            لا
+                        </span>
+                    </th>
+                </tr>
+                <tr>
+                    <th>هل يوجد أقارب من الدرجة الأولى لديهم سجل سابق في أي غرفة تجارية  : 
+                        <span *ngIf="item.relative_roomRecord == 'yes'">
+                            نعم
+                        </span>
+                        <span *ngIf="item.relative_roomRecord == 'no'">
+                            لا
+                        </span>
+                    </th>
+                </tr>
+                <tr>
+                    <th>هل احد افراد العائلة أو اكثر يعمل في مؤسسات الثورة  : <span>{{item.family_foundationWorkAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>هل يوجد في العائلة من ينتمي أؤ له علاقة وارتباط مع احدى التنظيمات الإرهابية (داعش, PYD, PKK, النظام) أو تهريب البشر ؟  : <span>{{item.family_terrorismAR}}</span></th>
+                </tr>
+            </table>
+
+            <h4 class="text-center" style="margin-top: 5%; font-weight: bold;">بيانات الشركة</h4>
+            <table class="table table-bordered text-right personal">
+                <tr>
+                    <th>اسم الشركة : <span>{{item.companyNameAR}}</span></th>
+                    <th>عنوان الشركة : <span>{{item.companyAddressAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>مجال عمل الشركة : <span>{{item.companyWorkAR}}</span></th>
+                    <th>رقم الكملك التركي ومكان الاصدار : <span>{{item.TC}} | {{item.TCplaceAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>رأسمال الشركة بالليرة التركية : <span>{{item.company_fundAR}}</span></th>
+                    <th>رقم جواز السفر ومكان الاصدار : <span>{{item.passport}} | {{item.passport_placeAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>جنسية الشركة : <span>{{item.companyOriginAR}}</span></th>
+                    <th>رقم هوية المجلس ومكان الاصدار : <span>{{item.council_Id}} | {{item.council_placeAR}}</span></th>
+                </tr>
+                <tr>
+                    <th>اسم مدير الشركة : <span>{{item.company_managerNameAR}}</span></th>
+                    <th>مكان الإقامة الحالي : <span>{{item.currentAdressAR}}</span></th>
+                </tr>
+            </table>
+            <div class="row text-center" style="font-weight: bold; margin-top: 3%;">
+                <div class="col-md-4">
+                    <p>
+                        اسم وشهرة وتوقيع صاحب الاستمارة
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        اسم وشهرة وتوقيع منظّم الاستمارة
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        المؤسّسة المنظّمة لنشرة الاستعلامات
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" id="print-section" *ngIf="item && globals.lang == 'tr'">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 turkish text-left">
+                <h4>
+                    Suriye Arap Cumhuriyeti
+                </h4>
+                <h4>
+                    Çobanbey Ulusal Kamu Güvenliği
+                </h4>
+                <h4>
+                    Çalışmalar ofisi
+                </h4>
+                <br>
+                <h5>
+                    <span class="turkish">Seri numarası : </span>
+                    {{item.seriNo}}   
+                </h5>
+                <h5>
+                    <span class="turkish">Formun tarihi : </span>
+                    ( {{item.createdAt.toDate() | date:'d/M/y'}} ) 
+                </h5>
+            </div>
+            <div class="col-md-4 turkish text-center">
+                <br><br>
+                <h1>
+                    Kişi Bilgileri
+                </h1>
+                <p>
+                    (Kişisel kimlik fotoğrafı ile birlikte)
+                </p>
+            </div>
+            <div class="col-md-4">
+                <img style="border-radius: 5px;float: right;" width="65%" src="{{item.image}}" alt="" >
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 1%;" dir="ltr">
+        <div class="col-md-12 center turkish">
+            <h4 class="text-center" style="font-weight: bold;">kişisel bilgileri</h4>
+            <table class="table table-bordered text-left personal">
+                <tr>
+                    <th>Adı ve soyadı : <span>{{item.nameTR}} {{item.lastnameTR}}</span></th>
+                    <th>Eş Adı : <span>{{item.wife_Name_TR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Baba adı : <span>{{item.fatherTR}}</span></th>
+                    <th>Çocuk Sayısı : <span>{{numberChildren}}</span></th>
+                </tr>
+                <tr>
+                    <th>Anne adı : <span>{{item.motherTR}}</span></th>
+                    <th>Şimdiki İş : <span>{{item.currentWorkTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Doğum yeri ve tarihi : <span>{{item.placeBirthTR}} | {{item.dateBirth}}</span></th>
+                    <th>Şimdiki İşyerinin Adresi : <span>{{item.currentWork_addresTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Kayıt yaptığı il : <span>{{item.cityTR}}</span></th>
+                    <th>Devrimden önce iş : <span>{{item.laterWorkTR}}</span></th>
+                </tr>
+                <tr>
+                    <th> Mevcut Adres : <span>{{item.currentAdressTR}}</span></th>
+                    <th>Devrim öncesi işyeri adresi : <span>{{item.laterWork_addresTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Önceki Adres : <span>{{item.laterAdressTR}}</span></th>
+                    <th>Milliyetçilik : <span>{{item.ethnicTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Telefon No : <span>{{item.phone}}</span></th>
+                    <th>Din : 
+                        <span *ngIf="item.religion == 'm'">
+                            Müslüman
+                        </span>
+                        <span *ngIf="item.religion == 'h'">
+                            Hıristiyan
+                        </span>
+                    </th>
+                </tr>
+                <tr>
+                    <th>WhatsApp : <span>{{item.whatsApp}}</span></th>
+                    <th>Aşiret : <span>{{item.clanTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Diğer Uyruğu : <span>{{item.otherNationalityTR}}</span></th>
+                    <th>Adli Sicil kaydı varsa : <span>{{item.criminalRecordTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Eğitim : <span>{{item.educationTR}}</span></th>
+                    <th>Devrime katılım : <span *ngIf="item.revolution">Evet</span> <span *ngIf="!item.revolution">Hayır</span></th>
+                </tr>
+                <tr>
+                    <th>Medeni Hal : <span>{{item.marriedTR}}</span></th>
+                    <th>Terör Örgütleriyle Bağlantısı varsa : <span>{{item.terrorismTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Devrim sonrası kurumlardan birinde çalıştınız mı? : <span>{{item.foundationWorkTR}}</span></th>
+                    <th>Eş çalışıyor mu : <span>{{item.wifeWorkTR}}</span></th>
+                </tr>
+            </table>
+            <table class="table table-bordered text-left personal" style="margin-top: -1rem;">
+                <tr>
+                    <th> Devrim sonrası  kurumlarda çalışan aile üyesi var mı?  : <span>{{item.family_foundationWorkTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Ailede terör örgütlerinden biriyle (IŞİD, PYD, PKK, rejim) veya insan kaçakçılığı yapanlarla ilişkisi ve bağlantısı olan var mı : <span>{{item.family_terrorismTR}}</span></th>
+                </tr>
+            </table>
+
+            <h4 class="text-center" style="margin-top: 5%; font-weight: bold;">Şirket bilgileri</h4>
+            <table class="table table-bordered text-left personal">
+                <tr>
+                    <th>Şirket adı : <span>{{item.companyNameTR}}</span></th>
+                    <th>Şirket adresi : <span>{{item.companyAddressTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Şirket Faaliyet Alanı : <span>{{item.companyWorkTR}}</span></th>
+                    <th>(AFAD/MISAFİR) Kimlik numarası ve verildiği yer : <span>{{item.TC}} | {{item.TCplaceTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Şirketin sermayesi TL : <span>{{item.company_fundTR}}</span></th>
+                    <th>Pasaport numarası ve verildiği yer : <span>{{item.passport}} | {{item.passport_placeTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Şirket uyruğu : <span>{{item.companyOriginTR}}</span></th>
+                    <th>YEREL MECLİS kimlik numarası ve verildiği yer : <span>{{item.council_Id}} | {{item.council_placeTR}}</span></th>
+                </tr>
+                <tr>
+                    <th>Şirket müdürünün adı : <span>{{item.company_managerNameTR}}</span></th>
+                    <th>Mevcut ikamet yeri : <span>{{item.currentAdressTR}}</span></th>
+                </tr>
+            </table>
+            <div class="row text-center" style="font-weight: bold; margin-top: 3%;">
+                <div class="col-md-4">
+                    <p>
+                        Form sahibinin adı, soyadı ve imzası
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Form düzenleyicinin adı, soyadı ve imzası
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Bülten panosunu düzenleyen kurucu
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="col-md-3 center text-right arabic" style="margin-top: 3%;">
+    <button class="btn btn-primary btn-block" (click)="generatePdf()"> طباعة الملف <i style="color: #fff;" class="fas fa-print"></i></button>
+</div>
+
+
+
+<app-footer></app-footer>
